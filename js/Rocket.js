@@ -1,10 +1,17 @@
 class Rocket {
-    constructor(lifeSpan) {
+    constructor(lifeSpan, target, childDNA) {
         this.pos = createVector(width / 2, height);
         this.vel = createVector();
         this.acc = createVector();
-        this.dna = new DNA(lifeSpan);
+        if (childDNA) {
+            this.dna = childDNA;
+        } else {
+            this.dna = new DNA(lifeSpan);
+        }
         this.count = 0;
+        this.target = target;
+        this.fitness = 0;
+        this.completed = false;
     }
 
     applyForce(f) {
@@ -12,11 +19,21 @@ class Rocket {
     }
 
     update() {
+        let d = dist(this.pos.x, this.pos.y, this.target.x, this.target.y);
+        if (d < 10) {
+            this.completed = true;
+            this.pos = this.target.copy();
+        }
+
         this.applyForce(this.dna.genes[this.count]);
         this.count++;
-        this.vel.add(this.acc);
-        this.pos.add(this.vel);
-        this.acc.mult(0);
+
+        // Only move if the rocket didn't reach it goal
+        if (!this.completed) {
+            this.vel.add(this.acc);
+            this.pos.add(this.vel);
+            this.acc.mult(0);
+        }
     }
 
     show() {
@@ -28,5 +45,13 @@ class Rocket {
         rectMode(CENTER);
         rect(0, 0, 25, 5);
         pop();
+    }
+
+    calcFitness() {
+        let d = dist(this.pos.x, this.pos.y, this.target.x, this.target.y);
+        this.fitness = map(d, 0, width, width, 0);
+        if (this.completed) {
+            this.fitness *= 10;
+        }
     }
 }
