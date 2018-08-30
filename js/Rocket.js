@@ -66,11 +66,13 @@ class Rocket {
         translate(this.pos.x, this.pos.y);
         rotate(this.vel.heading());
         rectMode(CENTER);
-        rect(0, 0, 25, 5);
+        rect(0, 0, 24, 5);
+        triangle(12, -2.5, 12, 2.5, 20, 0);
         pop();
     }
 
     calcFitness() {
+        // Calculating the based on how much the rocket got close to the target
         let d = dist(this.pos.x, this.pos.y, this.target.x, this.target.y);
         this.fitness = map(d, 0, width, width, 0);
         if (this.completed) {

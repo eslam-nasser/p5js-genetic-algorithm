@@ -5,6 +5,8 @@ let currentGenerationNumber = 0;
 let pastGnerationsCounter = 1;
 let target;
 let obstacle;
+let x = 20;
+let y = 20;
 
 function setup() {
     createCanvas(640, 480);
@@ -18,15 +20,21 @@ function setup() {
 
 function draw() {
     background(55);
-    population.run();
     lifeP.html(`Generation #${pastGnerationsCounter}`);
     currentGenerationNumber++;
+
+    // Kickstart the population
+    population.run();
+
+    // Show the target
     ellipse(target.x, target.y, 16);
 
     // Obstacle
     obstacle.show();
 
+    // If we reached the end of a generation life span
     if (currentGenerationNumber === lifeSpan) {
+        // Evaluate stuff and generate new generation
         population.evaluate();
         population.selection();
         currentGenerationNumber = 0;

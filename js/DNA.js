@@ -3,12 +3,14 @@ class DNA {
         this.genes = [];
         this.lifeSpan = lifeSpan;
 
+        // Populate the new DNA object with some fresh new genes
         for (let i = 0; i < lifeSpan; i++) {
             this.genes[i] = p5.Vector.random2D();
             this.genes[i].setMag(0.3);
         }
     }
 
+    // The crossover() will take care of merging the parents's DNA
     crossover(partner) {
         let newDNA = new DNA(this.lifeSpan);
         let midPoint = floor(random(this.genes.length));
@@ -25,6 +27,7 @@ class DNA {
         return newDNA;
     }
 
+    // The mutation() will take care of causing minor and random changes on the genes
     mutation() {
         for (let i = 0; i < this.genes.length; i++) {
             if (random(1) < 0.01) {
