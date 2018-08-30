@@ -1,6 +1,6 @@
 class Rocket {
     constructor(lifeSpan, target, obstacle, childDNA) {
-        this.pos = createVector(width / 2, height);
+        this.pos = createVector(width / 2, height - 50);
         this.vel = createVector();
         this.acc = createVector();
         if (childDNA) {
