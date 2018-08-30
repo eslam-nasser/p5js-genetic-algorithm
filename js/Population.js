@@ -1,11 +1,11 @@
 class Population {
-    constructor(populationSize, lifeSpan, target) {
+    constructor(populationSize, lifeSpan, target, obstacle) {
         this.rockets = [];
         this.populationSize = populationSize;
         this.matingPool = [];
 
         for (let i = 0; i < this.populationSize; i++) {
-            this.rockets[i] = new Rocket(lifeSpan, target);
+            this.rockets[i] = new Rocket(lifeSpan, target, obstacle);
         }
     }
 
@@ -50,6 +50,7 @@ class Population {
             newRockets[i] = new Rocket(
                 this.rockets[i].lifeSpan,
                 this.rockets[i].target,
+                obstacle,
                 childDNA
             );
         }
