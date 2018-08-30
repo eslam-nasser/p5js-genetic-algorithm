@@ -1,6 +1,9 @@
 class Rocket {
     constructor(lifeSpan, target, obstacle, childDNA) {
         this.pos = createVector(width / 2, height - 50);
+        this.w = 5;
+        this.h = 10;
+        this.color = [255, 255, 255];
         this.vel = createVector();
         this.acc = createVector();
         if (childDNA) {
@@ -26,6 +29,7 @@ class Rocket {
         if (d < 10) {
             this.completed = true;
             this.pos = this.target.copy();
+            this.color = [46, 204, 113];
         }
 
         // Check if the rocket hit the obstacle
@@ -36,14 +40,17 @@ class Rocket {
             this.pos.y < this.obstacle.pos.y + this.obstacle.h
         ) {
             this.crashed = true;
+            this.color = [231, 76, 60];
         }
 
         // Check if the rocket hit the world edges
         if (this.pos.x > width || this.pos.x < 0) {
             this.crashed = true;
+            this.color = [231, 76, 60];
         }
         if (this.pos.y > height || this.pos.y < 0) {
             this.crashed = true;
+            this.color = [231, 76, 60];
         }
 
         // Apply the moving forces of the rocket "thrusters"
@@ -62,12 +69,23 @@ class Rocket {
     show() {
         push();
         noStroke();
-        fill(255, 150);
+        fill(...this.color, 150);
         translate(this.pos.x, this.pos.y);
         rotate(this.vel.heading());
         rectMode(CENTER);
-        rect(0, 0, 24, 5);
-        triangle(12, -2.5, 12, 2.5, 20, 0);
+        // the rocket body
+        rect(0, 0, 10, 5);
+        // this tip
+        triangle(
+            this.h / 2,
+            -this.w / 2,
+
+            this.h / 2,
+            this.w / 2,
+
+            this.h,
+            0
+        );
         pop();
     }
 

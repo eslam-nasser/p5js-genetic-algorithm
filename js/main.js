@@ -23,14 +23,14 @@ function draw() {
     lifeP.html(`Generation #${pastGnerationsCounter}`);
     currentGenerationNumber++;
 
-    // Kickstart the population
-    population.run();
+    // Obstacle
+    obstacle.show();
 
     // Show the target
     ellipse(target.x, target.y, 16);
 
-    // Obstacle
-    obstacle.show();
+    // Kickstart the population
+    population.run();
 
     // If we reached the end of a generation life span
     if (currentGenerationNumber === lifeSpan) {
